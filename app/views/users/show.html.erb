@@ -1,0 +1,15 @@
+<%if @user.id == session[:user_id] then %>
+
+
+<h1><%= @user.name %>のページ</h1>
+
+<p>メールアドレス: <%= @user.email %></p>
+
+
+<%else%>
+<p></p>
+
+
+<%end%>
+
+<%= link_to "コンテンツへ移動",pictures_url%>
