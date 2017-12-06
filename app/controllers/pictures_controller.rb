@@ -75,7 +75,7 @@ class PicturesController < ApplicationController
   def confirm
     # @favorites_pictures= Picture.where(user_id: current_user.favorites)
     @favorites_pictures = current_user.favorite_pictures
-   render layout: 'index.html.erb'
+
   end
 
   def check

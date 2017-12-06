@@ -1,0 +1,12 @@
+<h1>お気に入り一覧</h1>
+<%= link_to '戻る', pictures_path %>
+<% @favorites_pictures.each do |picture| %>
+<div class="wrapper">
+  <p id="blogscontent"><%= image_tag picture.image ,size:'300x200'%></p>
+  <p id="blogscontent"><%= picture.title %></p>
+  <p id="blogscontent"><%= picture.content %></p>
+  <span id="blogpr"><%= picture.user.name %></span>
+  <span id="blogpr"><%= link_to 'お気に入り解除する', favorite_path(picture.id), method: :delete, class: 'btn btn-xs btn-danger'%></span>
+  <span id="blogpr"><<%= picture.updated_at %></span>
+</div>
+ <% end %>

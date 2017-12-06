@@ -1,15 +1,22 @@
+
+<div class="groupbox">
+
 <%if @user.id == session[:user_id] then %>
 
 
-<h1><%= @user.name %>のページ</h1>
+  <h1><%= @user.name %>のページ</h1>
 
 <p>メールアドレス: <%= @user.email %></p>
 
+<p><%= image_tag @user.image_url,width:300 %></p>
+<p><%= link_to "コンテンツへ移動",pictures_url, class:'btn btn-default'%></p>
+
+
 
 <%else%>
-<p></p>
+<p><%= link_to "コンテンツへ移動",pictures_url, class:'btn btn-default'%></p>
 
 
 <%end%>
+</div>
 
-<%= link_to "コンテンツへ移動",pictures_url%>

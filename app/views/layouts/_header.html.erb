@@ -16,7 +16,7 @@
       <ul class="nav navbar-nav navbar-right">
         <% if logged_in? %>
         <li><%= link_to "プロフィール", user_path(current_user.id) %></li>
-        <li><%= link_to "お気に入り一覧へ", confirm_blogs_path %></li>
+        <li><%= link_to "お気に入り一覧へ", confirm_pictures_path %></li>
         <li><%= link_to "ログアウト", session_path(current_user.id), method: :delete %></li>
       <% else %>
         <li><%= link_to "サインアップ", new_user_path %></li>

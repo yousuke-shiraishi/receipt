@@ -1,6 +1,8 @@
-<h1>Editing Picture</h1>
+
+<h1>画像を編集する</h1>
 
 <%= render 'form', picture: @picture %>
-
-<%= link_to 'Show', @picture %> |
-<%= link_to 'Back', pictures_path %>
+<% if @picture.user == current_user %>
+<%= link_to '確認', @picture , class: "btn btn-xs btn-primary" %>|
+<% end %>
+<%= link_to '戻る', pictures_path  , class: "btn btn-xs btn-primary"%>

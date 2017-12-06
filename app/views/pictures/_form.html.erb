@@ -1,37 +1,36 @@
-<%= form_with(model: picture, local: true) do |form| %>
-  <% if picture.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(picture.errors.count, "error") %> prohibited this picture from being saved:</h2>
+<%= form_with(model: @picture, local: true, :html => {multipart: true} ,url: choose_new_or_edit ) do |form| %>
+<% if @picture.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@picture.errors.count, "個エラーがあります,") %>保存されていません。</h2>
 
-      <ul>
-      <% picture.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+  <ul>
+    <% @picture.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+<div class="groupbox">
+  <div class="field form-group">
+    <%= form.label :title %>
+    <%= form.text_field :title,class: "form-control"%>
+    <%#= form.hidden_field :id %>
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :content %><br>
+    <%= form.text_area :content, id: :blog_content ,size: "40x4",class: "form-control"%>
+
+  </div>
+
+  <div class="field form-group">
+    <%= form.label :image %>
+    <%= form.file_field :image ,class: "form-control"%>
+
+  </div>
+
+  <%= form.submit  class: "btn btn-primary" %><%= link_to '戻る', pictures_path,class: "btn btn-primary"%>
+
   <% end %>
 
-  <div class="field">
-    <%= form.label :content %>
-    <%= form.text_area :content, id: :picture_content %>
-  </div>
-
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.number_field :user_id, id: :picture_user_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title, id: :picture_title %>
-  </div>
-
-  <div class="field">
-    <%= form.label :image %>
-    <%= form.text_field :image, id: :picture_image %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

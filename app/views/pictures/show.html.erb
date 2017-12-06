@@ -1,24 +1,19 @@
 
-
 <p>
   <strong>Content:</strong>
   <%= @picture.content %>
 </p>
+<% if @picture.user_id == current_user %>
+<%= link_to '編集', edit_picture_path(@picture)  , class: "btn btn-xs btn-primary"%> |
 
-<p>
-  <strong>User:</strong>
-  <%= @picture.user_id %>
-</p>
+<%end%>
+<%= link_to '戻る', pictures_path , class: "btn btn-xs btn-primary" %>
 
-<p>
-  <strong>Title:</strong>
-  <%= @picture.title %>
-</p>
+<% unless @picture.user == current_user %>
 
-<p>
-  <strong>Image:</strong>
-  <%= @picture.image %>
-</p>
-
-<%= link_to 'Edit', edit_picture_path(@picture) %> |
-<%= link_to 'Back', pictures_path %>
+  <% if @favorite.present? %>
+    <%= link_to 'お気に入り解除する', favorite_path(picture_id: @picture.id), method: :delete, class: 'btn btn-xs btn-danger' %>
+  <% else %>
+    <%= link_to 'お気に入りする', favorites_path(picture_id: @picture.id), method: :post, class: 'btn btn-xs,btn-prymary' %>
+  <% end %>
+<% end %>
