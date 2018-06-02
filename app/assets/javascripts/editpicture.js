@@ -43,6 +43,13 @@ function edit_picture() {
           //  if (canvas.getContext) {
           if(flg2 === true){
           //   var ctx = canvas.getContext('2d');
+          if(first_x > last_x){
+            [first_x, last_x ] = [last_x, first_x ]
+          }
+
+          if(first_y > last_y){
+            [first_y, last_y ] = [last_y, first_y ]
+          }
               ctx.fillStyle = "rgb(0, 0, 0)";
             //  console.log(first_x+" "+first_y+" "+last_x - first_x+" "+last_y - first_y)
               ctx.fillRect(first_x, first_y, last_x - first_x, last_y - first_y);
