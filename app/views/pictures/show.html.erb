@@ -5,7 +5,6 @@
 <% if @picture.user_id == current_user %>
 <%= link_to '編集', edit_picture_path(@picture)  , class: "btn btn-xs btn-primary"%>
 |
-
 <%end%>
 <%= link_to '戻る', pictures_path , class: "btn btn-xs btn-primary" %>
 

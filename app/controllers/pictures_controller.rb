@@ -6,7 +6,7 @@ class PicturesController < ApplicationController
   # GET /pictures.json
   def index
     @pictures = Picture.all.order(updated_at: :desc)
-   render layout: 'index.html.erb'
+    render layout: 'index.html.erb'
   end
 
   # GET /pictures/1
@@ -26,7 +26,7 @@ class PicturesController < ApplicationController
 
   # GET /pictures/1/edit
   def edit
-  
+    gon.picture = @picture.image_url
   end
 
   # POST /pictures
@@ -77,7 +77,6 @@ class PicturesController < ApplicationController
   def confirm
     # @favorites_pictures= Picture.where(user_id: current_user.favorites)
     @favorites_pictures = current_user.favorite_pictures
-
   end
 
   def check
