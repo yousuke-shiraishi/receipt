@@ -6,57 +6,49 @@ function edit_picture() {
   var first_y = null;
   var last_x = null;
   var last_y = null;
-
-  img.src = gon.picture+"?"+ new Date().getTime();
+  img.src = gon.picture + "?" + new Date().getTime();
   var canvas = document.getElementById('screen');
-  if(canvas && canvas.getContext){
+  if (canvas && canvas.getContext) {
     var ctx = canvas.getContext('2d');
     img.onload = function() {
-    ctx.drawImage(img, 0, 0);
+      ctx.drawImage(img, 0, 0);
 
-        first_click = function(e) {
-          var rect = e.target.getBoundingClientRect();
-          if(flg){
-            console.log("e状態" + e);
-            first_x = e.clientX - rect.left;
-            console.log("first_x" + first_x);
-            first_y = e.clientY - rect.top;
-            console.log("first_y" + first_y);
-            flg = false;
-          } else{
-            last_x = e.clientX - rect.left;
-            console.log("last_x" + last_x);
-            last_y = e.clientY - rect.top;
-            console.log("last_y" + last_y);
-            flg = true;
-            flg2 = true;
-        };
+
+      canvas.addEventListener("click", first_click, false);
+      canvas.addEventListener("click", fill_rect, false);
+      //var base = canvas.mozGetAsFile();
+      var base = canvas.toDataURL();
+      // base = base.replace(/^.*,/, '');
+      document.getElementById('custom_image').value = base;
+    };
+
+    first_click = function(e) {
+      var rect = e.target.getBoundingClientRect();
+      if (flg) {
+        first_x = e.clientX - rect.left;
+        first_y = e.clientY - rect.top;
+        flg = false;
+      } else {
+        last_x = e.clientX - rect.left;
+        last_y = e.clientY - rect.top;
+        flg = true;
+        flg2 = true;
       }
-        canvas.addEventListener("click",first_click,false);
-        canvas.addEventListener("click",fill_rect,false);
+    };
+
+    fill_rect = function(){
+      if (flg2 === true) {
+        if (first_x > last_x) {
+          [first_x, last_x] = [last_x, first_x]
+        }
+        if (first_y > last_y) {
+          [first_y, last_y] = [last_y, first_y]
+        }
+        ctx.fillStyle = "rgb(0, 0, 0)";
+        ctx.fillRect(first_x, first_y, last_x - first_x, last_y - first_y);
+        flg2 = false;
       }
-
-
-          // fill_rect();
-          fill_rect = function fill_rect() {
-          // //  var canvas = img.src;
-          //  if (canvas.getContext) {
-          if(flg2 === true){
-          //   var ctx = canvas.getContext('2d');
-          if(first_x > last_x){
-            [first_x, last_x ] = [last_x, first_x ]
-          }
-
-          if(first_y > last_y){
-            [first_y, last_y ] = [last_y, first_y ]
-          }
-              ctx.fillStyle = "rgb(0, 0, 0)";
-            //  console.log(first_x+" "+first_y+" "+last_x - first_x+" "+last_y - first_y)
-              ctx.fillRect(first_x, first_y, last_x - first_x, last_y - first_y);
-              flg2 = false;
-            }
-         }
-        //}
-}
+    };
+  }
 
 }

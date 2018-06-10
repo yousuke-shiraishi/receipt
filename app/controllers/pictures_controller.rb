@@ -1,4 +1,6 @@
 class PicturesController < ApplicationController
+  require 'base64'
+  include CarrierwaveBase64Uploader
   before_action :login_validate, only: %i[new edit show]
   before_action :set_picture, only: %i[edit show update destroy]
 
@@ -53,15 +55,16 @@ class PicturesController < ApplicationController
   # PATCH/PUT /pictures/1
   # PATCH/PUT /pictures/1.json
   def update
-    respond_to do |format|
-      if @picture.update(picture_params)
-        format.html { redirect_to @picture, notice: 'Picture was successfully updated.' }
-        format.json { render :show, status: :ok, location: @picture }
+    temp_picture_params = picture_params
+    image_data = base64_conversion(temp_picture_params[:custom_image])
+    temp_picture_params[:image] = image_data
+    temp_picture_params[:custom_image] = nil
+    binding.pry
+      if @picture.update(temp_picture_params)
+          redirect_to @picture, notice: 'Picture was successfully updated.'
       else
-        format.html { render :edit }
-        format.json { render json: @picture.errors, status: :unprocessable_entity }
+        render :edit
       end
-    end
   end
 
   # DELETE /pictures/1
@@ -94,7 +97,7 @@ class PicturesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def picture_params
-    params.require(:picture).permit(:title,:content,:image)
+    params.require(:picture).permit(:title,:content,:image,:custom_image)
   end
 
   def login_validate

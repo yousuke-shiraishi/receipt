@@ -56,6 +56,14 @@ GEM
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
       mime-types (>= 1.16)
+    carrierwave-base64 (2.7.0)
+      carrierwave (>= 0.8.0)
+      mime-types (~> 3.0)
+    carrierwave-data-uri (0.2.0)
+      carrierwave
+      data_uri
+    carrierwave-postgresql (0.3.0)
+      carrierwave (>= 0.10.0)
     childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
     coderay (1.1.2)
@@ -68,6 +76,7 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
     crass (1.0.4)
+    data_uri (0.1.0)
     dotenv (2.4.0)
     dotenv-rails (2.4.0)
       dotenv (= 2.4.0)
@@ -216,6 +225,9 @@ DEPENDENCIES
   byebug
   capybara (~> 2.13)
   carrierwave
+  carrierwave-base64
+  carrierwave-data-uri
+  carrierwave-postgresql
   coffee-rails (~> 4.2)
   dotenv-rails
   faker

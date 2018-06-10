@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="ja">
   <head>
     <title>インスタグラム</title>
     <%= csrf_meta_tags %>
@@ -10,13 +12,11 @@
     </head>
   <body>
   <%=render 'layouts/header'%>
-      <div class="jumbotron"></div>
       <div class="row">
 
         <div class="col-xs-12 col-md-offset-4 col-md-4 text-center">
           <%= yield %>
         </div>
-
         <footer class="footer">
           <div class="container">
             <p class="text-muted">Place sticky footer content here.</p>
@@ -24,14 +24,13 @@
         </footer>
       </div>
     </div>
-          <!-- flashにメッセージがある時 -->
     <% unless flash.empty? %>
-    <script type="text/javascript">
-      <% flash.each do |f| %>
-      <% type = f[0].to_s.gsub('danger','error').gsub('alert','error').gsub('notice','info') %>
-      toastr['<%= type %>']('<%= f[1] %>');
-      <% end %>
-    </script>
+      <script type="text/javascript">
+        <% flash.each do |f| %>
+          <% type = f[0].to_s.gsub('danger','error').gsub('alert','error').gsub('notice','info') %>
+            toastr['<%= type %>']('<%= f[1] %>');
+        <% end %>
+      </script>
     <% end %>
-  </body>
-</html>
+    </body>
+  </html>
