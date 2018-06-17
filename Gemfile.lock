@@ -42,7 +42,13 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     arel (8.0.0)
     bcrypt (3.1.11)
+    better_errors (2.4.0)
+      coderay (>= 1.0.0)
+      erubi (>= 1.0.0)
+      rack (>= 0.9.0)
     bindex (0.5.0)
+    binding_of_caller (0.8.0)
+      debug_inspector (>= 0.0.1)
     builder (3.2.3)
     byebug (10.0.2)
     capybara (2.18.0)
@@ -77,6 +83,7 @@ GEM
     concurrent-ruby (1.0.5)
     crass (1.0.4)
     data_uri (0.1.0)
+    debug_inspector (0.0.3)
     dotenv (2.4.0)
     dotenv-rails (2.4.0)
       dotenv (= 2.4.0)
@@ -127,6 +134,8 @@ GEM
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     pg (0.21.0)
+    postgresql_lo_streamer (1.2.1)
+      rails (>= 4.0)
     pry (0.11.3)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -222,6 +231,8 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt (= 3.1.11)
+  better_errors
+  binding_of_caller
   byebug
   capybara (~> 2.13)
   carrierwave
@@ -237,6 +248,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.2)
   mini_magick
   pg (~> 0.18)
+  postgresql_lo_streamer
   pry-rails
   puma (~> 3.7)
   rails (~> 5.1.4)

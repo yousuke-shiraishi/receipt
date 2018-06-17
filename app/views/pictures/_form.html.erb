@@ -12,23 +12,23 @@
 <% end %>
   <div class="field form-group">
     <%= form.label :title %>
-    <%= form.text_field :title,id: :picture_title,class: "form-control"%>
+    <%= form.text_field :title,id: :picture_title,class: "form-control" %>
 
   </div>
 
   <div class="field form-group">
     <%= form.label :blog_content %><br>
-    <%= form.text_area :content, id: :picture_blog_content ,size: "40x4",class: "form-control"%>
+    <%= form.text_area :content, id: :picture_blog_content ,size: "40x4",class: "form-control" %>
   </div>
-  <div class="field">
+  <div class="field form-group">
     <%= form.hidden_field :custom_image, id: :custom_image %>
   </div>
   <div class="field form-group">
     <%= form.label :image %>
-    <%= form.file_field :image,id: :picture_image ,class: "form-control"%>
+    <%= form.file_field :image,id: :picture_image ,class: "form-control" %>
   </div>
   <div class="field form-group">
-  <%= form.submit  class: "btn btn-primary" %><%= link_to '戻る', pictures_path,class: "btn btn-primary"%>
+  <%= form.submit  class: "btn btn-primary" %><%= link_to '戻る', pictures_path,class: "btn btn-primary" %>
 </div>
 
 <% end %>

@@ -1,9 +1,7 @@
 class PicturesController < ApplicationController
-  require 'base64'
-  include CarrierwaveBase64Uploader
   before_action :login_validate, only: %i[new edit show]
   before_action :set_picture, only: %i[edit show update destroy]
-
+  include CarrierwaveBase64Uploader
   # GET /pictures
   # GET /pictures.json
   def index
@@ -28,7 +26,7 @@ class PicturesController < ApplicationController
 
   # GET /pictures/1/edit
   def edit
-    gon.picture = @picture.image_url
+    gon.picture = @picture.image.url
   end
 
   # POST /pictures
@@ -56,40 +54,31 @@ class PicturesController < ApplicationController
   # PATCH/PUT /pictures/1.json
   def update
     temp_picture_params = picture_params
-    image_data = base64_conversion(temp_picture_params[:custom_image])
-    temp_picture_params[:image] = image_data
-    temp_picture_params[:custom_image] = nil
-    binding.pry
-      if @picture.update(temp_picture_params)
-          redirect_to @picture, notice: 'Picture was successfully updated.'
-      else
-        render :edit
-      end
+    #binding.pry
+    unless temp_picture_params[:custom_image].blank?
+      temp_picture_params[:image] = base64_conversion(picture_params[:custom_image])
+    end
+    picture_params[:custom_image] = nil
+    @picture.update!(temp_picture_params)
+    redirect_to @picture
   end
 
-  # DELETE /pictures/1
-  # DELETE /pictures/1.json
   def destroy
-    @picture.destroy
-    respond_to do |format|
-      format.html { redirect_to pictures_url, notice: 'Picture was successfully destroyed.' }
-      format.json { head :no_content }
+    if @picture.destroy
+      redirect_to pictures_url, notice: 'Picture was successfully destroyed.'
     end
   end
 
   def confirm
-    # @favorites_pictures= Picture.where(user_id: current_user.favorites)
     @favorites_pictures = current_user.favorite_pictures
   end
 
   def check
-    #@picture = Picture.new(picture_params)
     @picture = current_user.pictures.build(picture_params)
     render :new if @picture.invalid?
   end
 
   private
-
   # Use callbacks to share common setup or constraints between actions.
   def set_picture
     @picture = Picture.find(params[:id])
@@ -97,7 +86,7 @@ class PicturesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def picture_params
-    params.require(:picture).permit(:title,:content,:image,:custom_image)
+    params.require(:picture).permit(:title, :user_id, :content, :image, :custom_image)
   end
 
   def login_validate

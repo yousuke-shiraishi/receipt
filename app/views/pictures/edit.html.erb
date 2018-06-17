@@ -1,17 +1,18 @@
 
 <h1>画像を編集する</h1>
   <%#= image_tag @picture.image_url %>
-  <canvas id="screen" width='240' height='320'></canvas>
-<script type="text/javascript">
-//onload = function() {
-  edit_picture();
-//};
-</script>
+  <canvas id="screen"></canvas>
+  <script type="text/javascript">
+   edit_picture();
+  
+  //  document.getElementById('picture_image').src = base1;
+  //};
+  </script>
 
-
+<%#= binding.pry %>
 <%= render 'form', picture: @picture %>
 <% if @picture.user == current_user %>
 
-<%= link_to '確認', @picture , class: "btn btn-xs btn-primary" %>|
+<%= link_to '確認', picture_path(@picture) , class: "btn btn-xs btn-primary" %>|
 <% end %>
 <%= link_to '戻る', pictures_path  , class: "btn btn-xs btn-primary"%>

@@ -1,4 +1,4 @@
-function edit_picture() {
+edit_picture = function qqq() {
   var img = new Image();
   var flg = true;
   var flg2 = false;
@@ -6,6 +6,7 @@ function edit_picture() {
   var first_y = null;
   var last_x = null;
   var last_y = null;
+  var base1 = null;
   img.src = gon.picture + "?" + new Date().getTime();
   var canvas = document.getElementById('screen');
   if (canvas && canvas.getContext) {
@@ -13,13 +14,10 @@ function edit_picture() {
     img.onload = function() {
       ctx.drawImage(img, 0, 0);
 
-
+      document.getElementById('custom_image').value = "";
       canvas.addEventListener("click", first_click, false);
       canvas.addEventListener("click", fill_rect, false);
-      //var base = canvas.mozGetAsFile();
-      var base = canvas.toDataURL();
-      // base = base.replace(/^.*,/, '');
-      document.getElementById('custom_image').value = base;
+      console.log("ベースネーム１" + document.getElementById('custom_image').value);
     };
 
     first_click = function(e) {
@@ -47,8 +45,12 @@ function edit_picture() {
         ctx.fillStyle = "rgb(0, 0, 0)";
         ctx.fillRect(first_x, first_y, last_x - first_x, last_y - first_y);
         flg2 = false;
+        base1 = canvas.toDataURL('image/png');
+        console.log("ベースネーム２" + base1);
+      //  console.log("ドキュメント" + document.getElementById('image').src);
+        document.getElementById('custom_image').value = base1;
+        console.log("ベースネーム3" + document.getElementById('custom_image').value);
       }
     };
   }
-
-}
+};

@@ -11,16 +11,16 @@
   <div class="row">
     <% @pictures.each do |picture| %>
       <div class="picture-panel col-lg-4 col-md-4 col-xs-12 wrapper">
-        <p id="blogscontent"><%= image_tag picture.image,width:300 %></p>
+        <p id="blogscontent"><%= image_tag picture.image_url,width:300 %></p>
         <p id="blogscontent"><%= picture.title %></p>
         <p id="blogscontent"><%= picture.content %></p>
-        <p id="blogscontent"><%= image_tag picture.user.image_url,width:30,height:30,class:'img-circle' %></p>
+        <p id="blogscontent"><%= image_tag picture.image_url,width:30,height:30,class:'img-circle' %></p>
         <!-- <p><%#= picture.created_at %></p> -->
         <div id="blogscontent" class="picture-links">
-          <%= link_to '確認', picture, class: 'btn btn-xs' %>
+          <%= link_to '確認', picture_path(picture), class: 'btn btn-xs' %>
           <% if picture.user == current_user %>
           <%= link_to '編集', edit_picture_path(picture), class: 'btn btn-xs btn-info' %> |
-          <%= link_to '削除', picture, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn  btn-xs　btn-danger' %>
+          <%= link_to '削除', picture_path(picture), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn  btn-xs　btn-danger' %>
           <% end %>
         </div>
       </div>

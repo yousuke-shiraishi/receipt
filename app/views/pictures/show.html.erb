@@ -1,12 +1,14 @@
 <p>  <strong>Content:</strong></p>
+
 <p>  <%= image_tag @picture.image_url %></p>
 <p><%= @picture.title %></p>
 <p><%= @picture.content %></p>
-<% if @picture.user_id == current_user %>
+<% if @picture.user == current_user %>
+<%#= binding.pry %>
 <%= link_to '編集', edit_picture_path(@picture)  , class: "btn btn-xs btn-primary"%>
 |
 <%end%>
-<%= link_to '戻る', pictures_path , class: "btn btn-xs btn-primary" %>
+<%= link_to '戻る', root_path , class: "btn btn-xs btn-primary" %>
 
 <% unless @picture.user == current_user %>
 
