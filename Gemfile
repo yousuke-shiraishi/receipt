@@ -13,9 +13,8 @@ gem 'pg', '~> 0.18'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
+gem 'dotenv-rails'
 gem 'sass-rails', '~> 5.0'
-gem 'dotenv-rails' ##追記
-
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
@@ -40,32 +39,30 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
-  gem 'selenium-webdriver'
   gem 'pry-rails'
+  gem 'selenium-webdriver'
 end
 
 group :development do
-  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
-  gem 'letter_opener_web'
-  gem 'pry-rails'
   gem 'better_errors'
   gem 'binding_of_caller'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'letter_opener_web'
+  gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'web-console', '>= 3.3.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-gem 'toastr-rails'
 gem 'bcrypt', '3.1.11'
-gem 'faker'
 gem 'carrierwave'
-gem 'mini_magick'
-gem 'gon'
-gem 'carrierwave-data-uri'
 gem 'carrierwave-base64'
+gem 'carrierwave-data-uri'
 gem 'carrierwave-postgresql'
-gem 'postgresql_lo_streamer'
+gem 'faker'
+gem 'gon'
+gem 'mini_magick'
+gem 'toastr-rails'
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+#gem 'postgresql_lo_streamer'
+gem 'ransack'
