@@ -1,13 +1,22 @@
 class PicturesController < ApplicationController
   before_action :login_validate, only: %i[new edit show]
-  before_action :set_picture, only: %i[edit show update destroy]
+  before_action :set_search
+  before_action :set_picture, only: %i[edit show update destroy check]
   include CarrierwaveBase64Uploader
   # GET /pictures
   # GET /pictures.json
   def index
     @pictures = Picture.all.order(updated_at: :desc)
-    render layout: 'index.html.erb'
   end
+
+  def search
+    unless params[:q].nil?
+      params[:q]['search_word_cont_any'] = params[:q]['search_word_cont_any'].split(/[\p{blank}\s]+/)
+    end
+    @keyword = Picture.ransack(params[:q])
+    @pictures = @keyword.result
+  end
+
 
   # GET /pictures/1
   # GET /pictures/1.json
@@ -18,9 +27,9 @@ class PicturesController < ApplicationController
   # GET /pictures/new
   def new
     if params[:back]
-     @picture = Picture.new(picture_params)
-     else
-     @picture = Picture.new
+      @picture = current_user.pictures.build(gmap_params)
+    else
+      @picture = Picture.new
     end
   end
 
@@ -37,17 +46,11 @@ class PicturesController < ApplicationController
     @picture.user_id = current_user.id # 現在ログインしているuserのidをpictureのuser_idカラムに挿入する。
     #キャッシュから画像を復元する
     PicturetoMailer.pictureto_mail(@picture.user).deliver
-    # 省略
-
-    respond_to do |format|
       if @picture.save
-        format.html { redirect_to @picture, notice: 'Picture was successfully created.' }
-        format.json { render :show, status: :created, location: @picture }
+        redirect_to @picture, notice: 'Picture was successfully created.'
       else
-        format.html { render :new }
-        format.json { render json: @picture.errors, status: :unprocessable_entity }
+        render :new
       end
-    end
   end
 
   # PATCH/PUT /pictures/1
@@ -75,18 +78,23 @@ class PicturesController < ApplicationController
 
   def check
     @picture = current_user.pictures.build(picture_params)
+    gon.picture = @picture.image.url
     render :new if @picture.invalid?
   end
 
   private
   # Use callbacks to share common setup or constraints between actions.
+  def set_search
+    @keyword = Picture.search(params[:q])
+  end
+
   def set_picture
     @picture = Picture.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def picture_params
-    params.require(:picture).permit(:title, :user_id, :content, :image, :custom_image)
+    params.require(:picture).permit(:title, :user_id, :content, :image, :custom_image, :search_word, :q)
   end
 
   def login_validate

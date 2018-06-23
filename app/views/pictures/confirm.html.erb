@@ -2,7 +2,7 @@
 <%= link_to '戻る', pictures_path %>
 <% @favorites_pictures.each do |picture| %>
 <div class="wrapper">
-  <p id="blogscontent"><%= image_tag picture.image.url ,size:'300x200'%></p>
+  <p id="blogscontent"><%= image_tag picture.image_url ,size:'300x200'%></p>
   <p id="blogscontent"><%= picture.title %></p>
   <p id="blogscontent"><%= picture.content %></p>
   <span id="blogpr"><%= picture.user.name %></span>

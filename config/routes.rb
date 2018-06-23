@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     collection do
       get :confirm
       post :check
+      match 'search' => 'pictures#search', via: [:get, :post], as: :search
     end
   end
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?

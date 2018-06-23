@@ -14,14 +14,10 @@
   <%=render 'layouts/header'%>
       <div class="row">
 
-        <div class="col-xs-12 col-md-offset-4 col-md-4 text-center">
+        <div class="col-xs-12 col-md-4 col-lg-4">
           <%= yield %>
         </div>
-        <footer class="footer">
-          <div class="container">
-            <p class="text-muted">Place sticky footer content here.</p>
-          </div>
-        </footer>
+
       </div>
     </div>
     <% unless flash.empty? %>
@@ -33,4 +29,9 @@
       </script>
     <% end %>
     </body>
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">Place sticky footer content here.</p>
+      </div>
+    </footer>
   </html>

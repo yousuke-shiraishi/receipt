@@ -1,4 +1,4 @@
-<%= form_with(model: @picture, local: true, :html => {multipart: true} ,url: choose_new_or_edit ) do |form| %>
+<%= form_with(model: @picture = Picture.new, local: true, :html => {multipart: true} ,url: choose_new_or_edit ) do |form| %>
 <% if @picture.errors.any? %>
 <div id="error_explanation">
   <h2><%= pluralize(@picture.errors.count, "個エラーがあります,") %>保存されていません。</h2>
@@ -19,6 +19,10 @@
   <div class="field form-group">
     <%= form.label :blog_content %><br>
     <%= form.text_area :content, id: :picture_blog_content ,size: "40x4",class: "form-control" %>
+  </div>
+  <div class="field form-group">
+    <%= form.label :search_word,'サーチ用ワード' %><br>
+    <%= form.text_field :search_word, id: :picture_search_word ,class: "form-control" %>
   </div>
   <div class="field form-group">
     <%= form.hidden_field :custom_image, id: :custom_image %>

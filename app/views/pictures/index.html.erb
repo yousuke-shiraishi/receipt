@@ -1,29 +1,28 @@
-
-
-<h1>インスタグラムクローン</h1>
-
+<h1>家電を買い叩け</h1>
 
 <div class="container">
   <div id="new-picture-link">
     <%= link_to '新規ブログを作成する', new_picture_path %>
   </div>
-
-  <div class="row">
     <% @pictures.each do |picture| %>
-      <div class="picture-panel col-lg-4 col-md-4 col-xs-12 wrapper">
-        <p id="blogscontent"><%= image_tag picture.image_url,width:300 %></p>
-        <p id="blogscontent"><%= picture.title %></p>
-        <p id="blogscontent"><%= picture.content %></p>
-        <p id="blogscontent"><%= image_tag picture.image_url,width:30,height:30,class:'img-circle' %></p>
+        <p><%= image_tag picture.image_url,width:300 %></p>
+        <p><%= picture.title %></p>
+        <p><%= picture.content %></p>
+        <p><%= picture.search_word %></p>
+        <p><%= image_tag picture.image_url,width:30,height:30,class:'img-circle' %></p>
         <!-- <p><%#= picture.created_at %></p> -->
-        <div id="blogscontent" class="picture-links">
-          <%= link_to '確認', picture_path(picture), class: 'btn btn-xs' %>
+        <div class="picture-links">
+          <%= link_to '確認', picture_path(picture), class: 'btn btn-xs btn-primary' %>
           <% if picture.user == current_user %>
-          <%= link_to '編集', edit_picture_path(picture), class: 'btn btn-xs btn-info' %> |
-          <%= link_to '削除', picture_path(picture), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn  btn-xs　btn-danger' %>
+            <%= link_to '編集', edit_picture_path(picture), class: 'btn btn-xs btn-info' %>
+            |
+            <%= link_to '削除', picture_path(picture), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger' %>
           <% end %>
         </div>
-      </div>
     <% end %>
-  </div>
+        <%= search_form_for(@keyword,  :url => search_pictures_path, html: { method: :post }) do |f| %>
+          <%= f.label :search_word_cont_any %><br>
+          <%= f.search_field :search_word_cont_any %><br>
+          <%= f.submit 'キーワード検索する' %>
+        <% end %>
 </div>
