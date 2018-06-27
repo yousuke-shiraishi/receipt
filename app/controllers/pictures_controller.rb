@@ -1,7 +1,7 @@
 class PicturesController < ApplicationController
   before_action :login_validate, only: %i[new edit show]
   before_action :set_search
-  before_action :set_picture, only: %i[edit show update destroy check]
+  before_action :set_picture, only: %i[edit show update destroy]
   include CarrierwaveBase64Uploader
   # GET /pictures
   # GET /pictures.json
@@ -41,10 +41,8 @@ class PicturesController < ApplicationController
   # POST /pictures
   # POST /pictures.json
   def create
-    @picture = Picture.new(picture_params)
-    @picture.image.retrieve_from_cache! params[:cache][:image]
-    @picture.user_id = current_user.id # 現在ログインしているuserのidをpictureのuser_idカラムに挿入する。
-    #キャッシュから画像を復元する
+    @picture = Picture.new(exchange_params)
+    @picture.user_id = current_user.id
     PicturetoMailer.pictureto_mail(@picture.user).deliver
       if @picture.save
         redirect_to @picture, notice: 'Picture was successfully created.'
@@ -53,16 +51,8 @@ class PicturesController < ApplicationController
       end
   end
 
-  # PATCH/PUT /pictures/1
-  # PATCH/PUT /pictures/1.json
   def update
-    temp_picture_params = picture_params
-    #binding.pry
-    unless temp_picture_params[:custom_image].blank?
-      temp_picture_params[:image] = base64_conversion(picture_params[:custom_image])
-    end
-    picture_params[:custom_image] = nil
-    @picture.update!(temp_picture_params)
+    @picture.update!(exchange_params)
     redirect_to @picture
   end
 
@@ -83,7 +73,7 @@ class PicturesController < ApplicationController
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
+
   def set_search
     @keyword = Picture.search(params[:q])
   end
@@ -92,14 +82,20 @@ class PicturesController < ApplicationController
     @picture = Picture.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def picture_params
     params.require(:picture).permit(:title, :user_id, :content, :image, :custom_image, :search_word, :q)
   end
 
+  def exchange_params
+    temp_picture_params = picture_params
+    unless temp_picture_params[:custom_image].blank?
+      temp_picture_params[:image] = base64_conversion(picture_params[:custom_image])
+    end
+    picture_params[:custom_image] = nil
+    temp_picture_params
+  end
+
   def login_validate
-    #  if !logged_in?
-    #     redirect_to new_session_path
     if session[:user_id]
       begin
         @user = User.find(session[:user_id])

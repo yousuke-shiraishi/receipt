@@ -46,8 +46,6 @@ edit_picture = function qqq() {
         ctx.fillRect(first_x, first_y, last_x - first_x, last_y - first_y);
         flg2 = false;
         base1 = canvas.toDataURL('image/png');
-        console.log("ベースネーム２" + base1);
-      //  console.log("ドキュメント" + document.getElementById('image').src);
         document.getElementById('custom_image').value = base1;
         console.log("ベースネーム3" + document.getElementById('custom_image').value);
       }
