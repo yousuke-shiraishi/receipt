@@ -11580,7 +11580,7 @@ function edit_picture() {
   var last_y = null;
 
   img.src = gon.picture + "?" + new Date().getTime();
-  var canvas = document.getElementById('screen');
+  var canvas = document.getElementById('screen_image');
   if (canvas && canvas.getContext) {
     var ctx = canvas.getContext('2d');
     img.onload = function() {
@@ -11609,7 +11609,7 @@ fill_rect = function fill_rect() {
     flg2 = false;
   }
 }
-;
+
 (function() {
 
 
@@ -11630,8 +11630,3 @@ fill_rect = function fill_rect() {
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-
-
-
-
-;

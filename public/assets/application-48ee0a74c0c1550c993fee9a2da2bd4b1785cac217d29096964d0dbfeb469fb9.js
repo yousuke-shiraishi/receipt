@@ -11560,7 +11560,7 @@ return jQuery;
 function edit_picture() {
   var img = new Image();   // 新たな img 要素を作成
   img.src = gon.picture;
-  var ctx = document.getElementById('screen').getContext('2d');
+  var ctx = document.getElementById('screen_image').getContext('2d');
   img.onload = function(){
     ctx.drawImage(img,300,300);
   }

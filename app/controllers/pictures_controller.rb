@@ -15,11 +15,9 @@ class PicturesController < ApplicationController
     end
     @keyword = Picture.ransack(params[:q])
     @pictures = @keyword.result
+    render 'pictures/index'
   end
 
-
-  # GET /pictures/1
-  # GET /pictures/1.json
   def show
     @favorite = current_user.favorites.find_by(picture_id: @picture.id)
   end
@@ -38,8 +36,6 @@ class PicturesController < ApplicationController
     gon.picture = @picture.image.url
   end
 
-  # POST /pictures
-  # POST /pictures.json
   def create
     @picture = Picture.new(exchange_params)
     @picture.user_id = current_user.id

@@ -1,33 +1,36 @@
-<h3>以下を確定したら画像を加工しよう。<br>公にしたくない所を始点と終点を打って黒塗りしよう</h3>
-
-<canvas id="screen"></canvas>
-<script type="text/javascript">
-  edit_picture();
-</script>
-<%= form_with(model: @picture, url: pictures_path, local: true) do |form| %>
-<div class="field form-group">
-  <%= form.hidden_field :title %>
-</div>
-<div class="field form-group">
-  <%= form.hidden_field :content %>
-</div>
-<div class="field form-group">
-  <%= form.hidden_field :image ,id: :picture_image %>
-</div>
-<div class="field form-group">
-  <%= form.hidden_field :search_word ,id: :search_word %>
-</div>
-<div class="field form-group">
-  <%= form.hidden_field :custom_image ,id: :custom_image %>
-</div>
-<p>タイトル:<%= @picture.title %></p>
-<p>コンテンツ:<%= @picture.content %></p>
-<div class="field form-group">
-  <%= form.submit "登録する" , class: 'btn btn-xs btn-primary' %>
-</div>
+<div class="col-xs-12 col-md-offset-4 col-md-4 col-lg-offset-4 col-lg-4">
+  <h3>以下を確定したら画像を加工しよう。<br>公にしたくない所を始点と終点を打って黒塗りしよう</h3>
+  <div class="canvas_wrapper">
+    <canvas id="screen_image" width="300" height="420"></canvas>
+  </div>
+  <script type="text/javascript">
+    edit_picture();
+  </script>
+  <%= form_with(model: @picture, url: pictures_path, local: true) do |form| %>
+  <div class="field form-group">
+    <%= form.hidden_field :title %>
+  </div>
+  <div class="field form-group">
+    <%= form.hidden_field :content %>
+  </div>
+  <div class="field form-group">
+    <%= form.hidden_field :image ,id: :picture_image %>
+  </div>
+  <div class="field form-group">
+    <%= form.hidden_field :search_word ,id: :search_word %>
+  </div>
+  <div class="field form-group">
+    <%= form.hidden_field :custom_image ,id: :custom_image %>
+  </div>
+  <p>タイトル:<%= @picture.title %></p>
+  <p>コンテンツ:<%= @picture.content %></p>
+  <div class="field form-group">
+    <%= form.submit "登録する" , class: 'btn btn-xs btn-primary' %>
+  </div>
 <% end %>
 
 <%= form_with(model: @picture, url: new_picture_path, method: :get) do |form| %>
 <%= form.hidden_field :content %>
 <%= form.submit "戻る", name: 'back', class: 'btn btn-xs btn-danger' %>
 <% end %>
+</div>

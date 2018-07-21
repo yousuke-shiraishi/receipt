@@ -1,20 +1,21 @@
-<p>  <strong>Content:</strong></p>
-
-<p>  <%= image_tag @picture.image_url %></p>
-<p><%= @picture.title %></p>
-<p><%= @picture.content %></p>
-<% if @picture.user == current_user %>
-<%#= binding.pry %>
-<%= link_to '編集', edit_picture_path(@picture)  , class: "btn btn-xs btn-primary"%>
-|
-<%end%>
-<%= link_to '戻る', root_path , class: "btn btn-xs btn-primary" %>
-
-<% unless @picture.user == current_user %>
-
-<% if @favorite.present? %>
-<%= link_to 'お気に入り解除する', favorite_path(picture_id: @picture.id), method: :delete, class: 'btn btn-xs btn-danger' %>
-<% else %>
-<%= link_to 'お気に入りする', favorites_path(picture_id: @picture.id), method: :post, class: 'btn btn-xs,btn-prymary' %>
-<% end %>
-<% end %>
+<div class="col-xs-12 col-md-offset-4 col-md-4 col-lg-offset-4 col-lg-4">
+  <p>
+    <strong>レシート内容</strong>
+  </p>
+  <p>
+    <%= image_tag @picture.image_url %></p>
+  <p><%= @picture.title %></p>
+  <p><%= @picture.content %></p>
+  <% if @picture.user == current_user %>
+      <%= link_to '編集', edit_picture_path(@picture) , class: "btn btn-xs btn-primary"%>
+      |
+    <%end%>
+    <%= link_to '戻る', root_path , class: "btn btn-xs btn-primary" %>
+    <% unless @picture.user == current_user %>
+      <% if @favorite.present? %>
+        <%= link_to 'お気に入り解除する', favorite_path(picture_id: @picture.id), method: :delete, class: 'btn btn-xs btn-danger' %>
+      <% else %>
+        <%= link_to 'お気に入りする', favorites_path(picture_id: @picture.id), method: :post, class: 'btn btn-xs,btn-prymary' %>
+      <% end %>
+    <% end %>
+  </div>

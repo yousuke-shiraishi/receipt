@@ -1,28 +1,39 @@
-<h1>家電を買い叩け</h1>
-
-<div class="container">
-  <div id="new-picture-link">
-    <%= link_to '新規ブログを作成する', new_picture_path %>
-  </div>
-    <% @pictures.each do |picture| %>
-        <p><%= image_tag picture.image_url,width:300 %></p>
+<h1 class="text-center">家電を買い叩け</h1>
+<div id="new-picture-link">
+  <%= link_to '新規ブログを作成する', new_picture_path %>
+</div>
+<div class="container_box">
+  <% @pictures.each do |picture| %>
+    <div class="box">
+      <div class="content_show">
+        <p><%= image_tag picture.image_url ,class:'img center-block' %></p>
+        <span>タイトル</span>
         <p><%= picture.title %></p>
-        <p><%= picture.content %></p>
-        <p><%= picture.search_word %></p>
-        <p><%= image_tag picture.image_url,width:30,height:30,class:'img-circle' %></p>
-        <!-- <p><%#= picture.created_at %></p> -->
-        <div class="picture-links">
-          <%= link_to '確認', picture_path(picture), class: 'btn btn-xs btn-primary' %>
-          <% if picture.user == current_user %>
-            <%= link_to '編集', edit_picture_path(picture), class: 'btn btn-xs btn-info' %>
-            |
-            <%= link_to '削除', picture_path(picture), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger' %>
-          <% end %>
-        </div>
-    <% end %>
-        <%= search_form_for(@keyword,  :url => search_pictures_path, html: { method: :post }) do |f| %>
-          <%= f.label :search_word_cont_any %><br>
-          <%= f.search_field :search_word_cont_any %><br>
-          <%= f.submit 'キーワード検索する' %>
+        <span>メッセージ</span>
+        <p><%= picture.content %></p><br>
+        <% unless picture.search_word.blank? %>
+          <span class="keyword_box">これは検索用のキーワード</span>
+          <p class="btn btn-info"><%= picture.search_word %></p>
+        <% end %><br><br>
+        <p><%= image_tag picture.user.image_url,width:30,height:30,class:'img-circle' %></p>
+        <p><%= picture.created_at %></p>
+      </div>
+
+      <div class="picture-links">
+        <%= link_to '確認', picture_path(picture), class: 'btn btn-xs btn-primary' %>
+        <% if picture.user == current_user %>
+          <%= link_to '編集', edit_picture_path(picture), class: 'btn btn-xs btn-info' %>
+          |
+          <%= link_to '削除', picture_path(picture), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger' %>
         <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<div class="picture_search">
+  <%= search_form_for(@keyword, :url => search_pictures_path, html: { method: :post }) do |f| %>
+  <%= f.label :search_word_cont_any %><br>
+  <%= f.search_field :search_word_cont_any %><br>
+  <%= f.submit 'キーワード検索する' %>
+<% end %>
 </div>

@@ -10943,6 +10943,172 @@ if ( !noGlobal ) {
 
 return jQuery;
 } );
+// By: Hans Fj�llemark and John Papa
+// https://github.com/CodeSeven/toastr
+// 
+// Modified to support css styling instead of inline styling
+// Inspired by https://github.com/Srirangan/notifer.js/
+
+;(function(window, $) {
+    window.toastr = (function() {
+        var 
+            defaults = {
+                tapToDismiss: true,
+                toastClass: 'toast',
+                containerId: 'toast-container',
+                debug: false,
+                fadeIn: 300,
+                fadeOut: 1000,
+                extendedTimeOut: 1000,
+                iconClasses: {
+                    error: 'toast-error',
+                    info: 'toast-info',
+                    success: 'toast-success',
+                    warning: 'toast-warning'
+                },
+                iconClass: 'toast-info',
+                positionClass: 'toast-top-right',
+                timeOut: 5000, // Set timeOut to 0 to make it sticky
+                titleClass: 'toast-title',
+                messageClass: 'toast-message'
+            },
+
+
+            error = function(message, title) {
+                return notify({
+                    iconClass: getOptions().iconClasses.error,
+                    message: message,
+                    title: title
+                })
+            },
+
+            getContainer = function(options) {
+                var $container = $('#' + options.containerId)
+
+                if ($container.length)
+                    return $container
+
+                $container = $('<div/>')
+                    .attr('id', options.containerId)
+                    .addClass(options.positionClass)
+
+                $container.appendTo($('body'))
+
+                return $container
+            },
+
+            getOptions = function() {
+                return $.extend({}, defaults, toastr.options)
+            },
+
+            info = function(message, title) {
+                return notify({
+                    iconClass: getOptions().iconClasses.info,
+                    message: message,
+                    title: title
+                })
+            },
+
+            notify = function(map) {
+                var 
+                    options = getOptions(),
+                    iconClass = map.iconClass || options.iconClass,
+                    intervalId = null,
+                    $container = getContainer(options),
+                    $toastElement = $('<div/>'),
+                    $titleElement = $('<div/>'),
+                    $messageElement = $('<div/>'),
+                    response = { options: options, map: map }
+
+                if (map.iconClass) {
+                    $toastElement.addClass(options.toastClass).addClass(iconClass)
+                }
+
+                if (map.title) {
+                    $titleElement.append(map.title).addClass(options.titleClass)
+                    $toastElement.append($titleElement)
+                }
+
+                if (map.message) {
+                    $messageElement.append(map.message).addClass(options.messageClass)
+                    $toastElement.append($messageElement)
+                }
+
+                var fadeAway = function() {
+                    if ($(':focus', $toastElement).length > 0)
+                		return
+                	
+                    var fade = function() {
+                        return $toastElement.fadeOut(options.fadeOut)
+                    }
+
+                    $.when(fade()).done(function() {
+                        if ($toastElement.is(':visible')) {
+                            return
+                        }
+                        $toastElement.remove()
+                        if ($container.children().length === 0)
+                            $container.remove()
+                    })
+                }
+
+                var delayedFadeAway = function() {
+                    if (options.timeOut > 0 || options.extendedTimeOut > 0) {
+                        intervalId = setTimeout(fadeAway, options.extendedTimeOut)
+                    }
+                }
+
+                var stickAround = function() {
+                    clearTimeout(intervalId)
+                    $toastElement.stop(true, true)
+                        .fadeIn(options.fadeIn)
+                }
+
+                $toastElement.hide()
+                $container.prepend($toastElement)
+                $toastElement.fadeIn(options.fadeIn)
+
+                if (options.timeOut > 0) {
+                    intervalId = setTimeout(fadeAway, options.timeOut)
+                }
+
+                $toastElement.hover(stickAround, delayedFadeAway)
+
+                if (options.tapToDismiss) {
+                    $toastElement.click(fadeAway)
+                }
+
+                if (options.debug) {
+                    console.log(response)
+                }
+                return $toastElement
+            },
+
+            success = function(message, title) {
+                return notify({
+                    iconClass: getOptions().iconClasses.success,
+                    message: message,
+                    title: title
+                })
+            },
+
+            warning = function(message, title) {
+                return notify({
+                    iconClass: getOptions().iconClasses.warning,
+                    message: message,
+                    title: title
+                })
+            }
+
+        return {
+            error: error,
+            info: info,
+            options: {},
+            success: success,
+            warning: warning
+        }
+    })()
+} (window, jQuery));
 (function() {
   var context = this;
 
@@ -11557,40 +11723,115 @@ return jQuery;
   App.cable = ActionCable.createConsumer();
 
 }).call(this);
-function edit_picture() {
-  var img = new Image();   // 新たな img 要素を作成
-  img.src = gon.picture;
-  var ctx = document.getElementById('screen_image').getContext('2d');
-  img.onload = function(){
-    ctx.drawImage(img,300, 300 * imageObj.height / imageObj.width);
+$(document).ready(function() {
+var w = $('.canvas_wrapper').width();
+console.log("キャンバスの横の幅" + w);
+var h = $('.canvas_wrapper').height();
+console.log("キャンバスの縦幅" + h);
+$('#screen_image').attr('width', w);
+$('#screen_image').attr('height', h);
+});
+first_click = function(e) {
+  var rect = e.target.getBoundingClientRect();
+  if (flg) {
+    first_x = e.clientX - rect.left;
+    first_y = e.clientY - rect.top;
+    flg = false;
+  } else {
+    last_x = e.clientX - rect.left;
+    last_y = e.clientY - rect.top;
+    flg = true;
+    flg2 = true;
   }
-  $(document).ready(function(){
-        img.click(function(e) {
-            var first_x = e.pageX;
-            var first_y = e.pageY;
-            if (first_x != 0) {
-              last_x = e.pageX;
-              first_x = 0;
-            }
-            if (first_y != 0) {
-              last_y = e.pageY;
-              first_y = 0;
-            }
-            fill_rect();
-          });
-  });
-          function fill_rect() {
-            //var canvas = document.getElementById('sheet');
-            var canvas = img.src
-            if (canvas.getContext) {
-              var context = canvas.getContext('2d');
-              context.fillStyle = "rgb(0, 0, 0)";
-              context.fillRect(first_x, first_y, last_x - first_X, last_y - first_x);
-            }
-          }
+};
+//import fill_rect from "fill_rect";
+// import first_click from "first_click"
 
-}
-;
+
+edit_picture = function edit_picture() {
+  var img = new Image();
+  var flg = true;
+  var flg2 = false;
+  var first_x = null;
+  var first_y = null;
+  var last_x = null;
+  var last_y = null;
+  var base1 = null;
+  img.src = gon.picture + "?" + new Date().getTime();
+  var canvas = document.getElementById('screen_image');
+  if (canvas && canvas.getContext) {
+    var ctx = canvas.getContext('2d');
+    img.onload = function() {
+      ctx.drawImage(img,0,0,300,300 * img.height / img.width);
+
+      document.getElementById('custom_image').value = "";
+      canvas.addEventListener("click", first_click, false);
+      canvas.addEventListener("click", fill_rect, false);
+    };
+
+    // first_click = function(e) {
+    //   var rect = e.target.getBoundingClientRect();
+    //   if (flg) {
+    //     first_x = e.clientX - rect.left;
+    //     first_y = e.clientY - rect.top;
+    //     flg = false;
+    //   } else {
+    //     last_x = e.clientX - rect.left;
+    //     last_y = e.clientY - rect.top;
+    //     flg = true;
+    //     flg2 = true;
+    //   }
+    // };
+
+    // fill_rect = function(){
+    //   if (flg2 === true) {
+    //     if (first_x > last_x) {
+    //       [first_x, last_x] = [last_x, first_x]
+    //     }
+    //     if (first_y > last_y) {
+    //       [first_y, last_y] = [last_y, first_y]
+    //     }
+    //     ctx.fillStyle = "rgb(0, 0, 0)";
+    //     ctx.fillRect(first_x, first_y, last_x - first_x, last_y - first_y);
+    //     flg2 = false;
+    //     base1 = canvas.toDataURL('image/png');
+    //     document.getElementById('custom_image').value = base1;
+    //     console.log("ベースネーム3" + document.getElementById('custom_image').value);
+    //   }
+    // };
+  }
+};
+fill_rect = function(){
+  if (flg2 === true) {
+    if (first_x > last_x) {
+      [first_x, last_x] = [last_x, first_x]
+    }
+    if (first_y > last_y) {
+      [first_y, last_y] = [last_y, first_y]
+    }
+    ctx.fillStyle = "rgb(0, 0, 0)";
+    ctx.fillRect(first_x, first_y, last_x - first_x, last_y - first_y);
+    flg2 = false;
+    base1 = canvas.toDataURL('image/png');
+    document.getElementById('custom_image').value = base1;
+  }
+};
+//export { fill_rect };
+first_click = function(e) {
+      var rect = e.target.getBoundingClientRect();
+      if (flg) {
+        first_x = e.clientX - rect.left;
+        first_y = e.clientY - rect.top;
+        flg = false;
+      } else {
+        last_x = e.clientX - rect.left;
+        last_y = e.clientY - rect.top;
+        flg = true;
+        flg2 = true;
+      }
+    };
+
+    //export { first_click };
 (function() {
 
 
@@ -11611,6 +11852,7 @@ function edit_picture() {
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
 
 
 

@@ -1,14 +1,14 @@
-
-<h1>画像を編集する</h1>
-  <canvas id="screen"></canvas>
+<div class="col-xs-12 col-md-offset-4 col-md-4 col-lg-offset-4 col-lg-4">
+  <h1>画像を編集する</h1>
+  <div class="canvas_wrapper">
+    <canvas id="screen_image" width="300" height="420"></canvas>
+  </div>
   <script type="text/javascript">
-   edit_picture();
+    edit_picture();
   </script>
-
-<%#= binding.pry %>
-<%= render 'form', picture: @picture %>
-<% if @picture.user == current_user %>
-
-<%= link_to '確認', picture_path(@picture) , class: "btn btn-xs btn-primary" %>|
-<% end %>
-<%= link_to '戻る', pictures_path  , class: "btn btn-xs btn-primary"%>
+  <%= render 'form', picture: @picture %>
+  <% if @picture.user == current_user %>
+    <%= link_to '確認', picture_path(@picture) , class: "btn btn-xs btn-primary" %>|
+  <% end %>
+  <%= link_to '戻る', pictures_path , class: "btn btn-xs btn-primary"%>
+</div>
