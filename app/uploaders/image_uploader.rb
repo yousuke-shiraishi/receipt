@@ -4,12 +4,12 @@ class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
   if Rails.env.production?
     include Cloudinary::CarrierWave
+    process :convert => 'png'
+    process :tags => ['image']
   else
     storage :file
   end
 
-  process :convert => 'png'
-  process :tags => ['image']
 
   # Choose what kind of storage to use for this uploader:
   process resize_to_limit: [300, 300] # 画像サイズの調整
