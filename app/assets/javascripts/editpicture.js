@@ -7,6 +7,7 @@ edit_picture = function edit_picture() {
   var last_x = null;
   var last_y = null;
   var base1 = null;
+  var data =null;
   img.src = gon.picture + "?" + new Date().getTime();
   var canvas = document.getElementById('screen_image');
   if (canvas && canvas.getContext) {
@@ -17,6 +18,8 @@ edit_picture = function edit_picture() {
       document.getElementById('custom_image').value = "";
       canvas.addEventListener("click", first_click, false);
       canvas.addEventListener("click", fill_rect, false);
+      // $('#custom_image').fileupload({ formData: { file: data }});
+      // $('#custom_image').fileupload('add', { files: [ data ] });
     };
 
     first_click = function(e) {
@@ -45,9 +48,9 @@ edit_picture = function edit_picture() {
         ctx.fillRect(first_x, first_y, last_x - first_x, last_y - first_y);
         flg2 = false;
         data = canvas.toDataURL('image/png');
-      //  document.getElementById('custom_image').value = data;
-        $('#custom_image').fileupload('option', 'formData').file = data;
-        $('#custom_image').fileupload('add', { files: [ data ] });
+        document.getElementById('custom_image').value = data;
+       // $('#custom_image').fileupload({ formData: { file: data }});
+       // $('#custom_image').fileupload('add', { files: [ data ] });
       }
     };
   }

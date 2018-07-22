@@ -66,4 +66,5 @@ gem 'toastr-rails'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 #gem 'postgresql_lo_streamer'
 gem 'ransack'
+gem "jquery-fileupload-rails"
 gem 'cloudinary'
