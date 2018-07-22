@@ -7,6 +7,10 @@ class ImageUploader < CarrierWave::Uploader::Base
   else
     storage :file
   end
+
+  process :convert => 'png'
+  process :tags => ['image']
+
   # Choose what kind of storage to use for this uploader:
   process resize_to_limit: [300, 300] # 画像サイズの調整
   # Override the directory where uploaded files will be stored.
