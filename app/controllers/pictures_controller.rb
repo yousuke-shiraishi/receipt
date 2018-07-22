@@ -25,7 +25,7 @@ class PicturesController < ApplicationController
   # GET /pictures/new
   def new
     if params[:back]
-      @picture = current_user.pictures.build(gmap_params)
+      @picture = current_user.pictures.build(picture_params)
     else
       @picture = Picture.new
     end
