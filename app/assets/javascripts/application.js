@@ -14,4 +14,5 @@
 //= require turbolinks
 //= require jquery/dist/jquery.js
 //= require toastr
+//= require cloudinary
 //= require_tree .

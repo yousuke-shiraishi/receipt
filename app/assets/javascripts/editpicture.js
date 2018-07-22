@@ -44,8 +44,10 @@ edit_picture = function edit_picture() {
         ctx.fillStyle = "rgb(0, 0, 0)";
         ctx.fillRect(first_x, first_y, last_x - first_x, last_y - first_y);
         flg2 = false;
-        base1 = canvas.toDataURL('image/png');
-        document.getElementById('custom_image').value = base1;
+        data = canvas.toDataURL('image/png');
+      //  document.getElementById('custom_image').value = data;
+        $('#custom_image').fileupload('option', 'formData').file = data;
+        $('#custom_image').fileupload('add', { files: [ data ] });
       }
     };
   }
