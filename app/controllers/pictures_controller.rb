@@ -64,8 +64,7 @@ class PicturesController < ApplicationController
 
   def check
     @picture = current_user.pictures.build(picture_params)
-    gon.picture = @picture.image.url if Rails.env.development?
-    gon.picture = @picture.image.tempfile if Rails.env.production?
+    gon.picture = @picture.image.url
     render :new if @picture.invalid?
   end
 

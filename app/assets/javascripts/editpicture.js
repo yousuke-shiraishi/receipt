@@ -49,8 +49,8 @@ edit_picture = function edit_picture() {
         flg2 = false;
         data = canvas.toDataURL('image/png');
         document.getElementById('custom_image').value = data;
-       // $('#custom_image').fileupload({ formData: { file: data }});
-       // $('#custom_image').fileupload('add', { files: [ data ] });
+        $('#custom_image').fileupload({ formData: { file: data }});
+        $('#custom_image').fileupload('add', { files: [ data ] });
       }
     };
   }
