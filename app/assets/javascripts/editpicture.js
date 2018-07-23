@@ -37,6 +37,7 @@ edit_picture = function edit_picture() {
     };
 
     fill_rect = function(){
+      let CSRF_TOKEN = $('meta[name = "csrf-token"]').attr('content');
       if (flg2 === true) {
         if (first_x > last_x) {
           [first_x, last_x] = [last_x, first_x]
