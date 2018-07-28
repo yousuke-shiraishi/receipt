@@ -14,13 +14,13 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
-        <% if logged_in? %>
+        <% if user_signed_in? %>
         <li><%= link_to "プロフィール", user_path(current_user.id) %></li>
         <li><%= link_to "お気に入り一覧へ", confirm_pictures_path %></li>
-        <li><%= link_to "ログアウト", session_path(current_user.id), method: :delete %></li>
+        <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
       <% else %>
-        <li><%= link_to "サインアップ", new_user_path %></li>
-        <li><%= link_to "ログイン", new_session_path %></li>
+        <li><%= link_to "新規登録", new_user_registration_path %></li>
+        <li><%= link_to "ログイン", new_user_session_path %></li>
         <% end %>
       </ul>
     </div>

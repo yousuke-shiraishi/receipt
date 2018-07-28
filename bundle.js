@@ -1,0 +1,1 @@
+console.error("Error: Cannot find module '/Users/y-shiraishi/rails/instagram/editpicture.js' from '/Users/y-shiraishi/rails/instagram'");

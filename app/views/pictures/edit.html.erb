@@ -3,9 +3,7 @@
   <div class="canvas_wrapper">
     <canvas id="screen_image" width="300" height="420"></canvas>
   </div>
-  <script type="text/javascript">
-    edit_picture();
-  </script>
+  <script src="bundle.js"></script>
   <%= render 'form', picture: @picture %>
   <% if @picture.user == current_user %>
     <%= link_to '確認', picture_path(@picture) , class: "btn btn-xs btn-primary" %>|

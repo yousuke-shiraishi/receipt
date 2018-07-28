@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
 
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  devise_for :users
   root to: 'pictures#index'
   get 'favorites/create'
   get 'favorites/destroy'
-  get 'sessions/new'
   resources :contacts
-  resources :sessions, only: %i[new create destroy]
   resources :users
   resources :favorites, only: %i[create destroy]
   # resources :pictures

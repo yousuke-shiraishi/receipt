@@ -59,6 +59,7 @@ gem 'carrierwave'
 gem 'carrierwave-base64'
 gem 'carrierwave-data-uri'
 gem 'carrierwave-postgresql'
+gem 'devise'
 gem 'faker'
 gem 'gon'
 gem 'mini_magick'
@@ -68,3 +69,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'ransack'
 gem "jquery-fileupload-rails"
 gem 'cloudinary'
+gem 'rails_admin'
+gem 'cancancan'

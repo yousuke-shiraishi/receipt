@@ -1,5 +1,5 @@
 class PicturesController < ApplicationController
-  before_action :login_validate, only: %i[new edit show]
+  before_action :authenticate_user!, only: [:new, :create]
   before_action :set_search
   before_action :set_picture, only: %i[edit show update destroy]
   include CarrierwaveBase64Uploader
@@ -64,7 +64,8 @@ class PicturesController < ApplicationController
 
   def check
     @picture = current_user.pictures.build(picture_params)
-    gon.picture = @picture.image.url
+    gon.picture = @picture.image_cache
+
     render :new if @picture.invalid?
   end
 
@@ -79,7 +80,7 @@ class PicturesController < ApplicationController
   end
 
   def picture_params
-    params.require(:picture).permit(:title, :user_id, :content, :image, :custom_image, :search_word, :q)
+    params.require(:picture).permit(:title, :user_id, :content, :image, :custom_image, :search_word, :q, :image_cache)
   end
 
   def exchange_params
@@ -89,16 +90,5 @@ class PicturesController < ApplicationController
     end
     picture_params[:custom_image] = nil
     temp_picture_params
-  end
-
-  def login_validate
-    if session[:user_id]
-      begin
-        @user = User.find(session[:user_id])
-      rescue ActiveRecord::RecordNotFound
-        reset_session
-      end
-    end
-    redirect_to new_session_path unless @user
   end
 end

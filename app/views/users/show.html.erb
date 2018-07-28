@@ -1,9 +1,10 @@
 <div class="col-xs-12 col-md-offset-4 col-md-4 col-lg-offset-4 col-lg-4">
   <div>
-    <%if @user.id == session[:user_id] then %>
+    <%if @user == current_user then %>
       <h1><%= @user.name %>のページ</h1>
-      <p>メールアドレス:　<%= @user.email %></p>
+      <p>メールアドレス: <%= @user.email %></p>
       <p><%= image_tag @user.image_url,width:300 %></p>
+      <p><%= link_to '編集する', edit_user_registration_path(@user) %></p>
       <p><%= link_to "コンテンツへ移動",pictures_url, class:'btn btn-default'%></p>
     <%else%>
       <p><%= link_to "コンテンツへ移動",pictures_url, class:'btn btn-default'%></p>

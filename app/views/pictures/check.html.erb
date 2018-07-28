@@ -1,11 +1,10 @@
 <div class="col-xs-12 col-md-offset-4 col-md-4 col-lg-offset-4 col-lg-4">
+  <%# binding.pry %>
   <h3>以下を確定したら画像を加工しよう。<br>公にしたくない所を始点と終点を打って黒塗りしよう</h3>
   <div class="canvas_wrapper">
     <canvas id="screen_image" width="300" height="420"></canvas>
   </div>
-  <script type="text/javascript">
-    edit_picture();
-  </script>
+
   <%= form_with(model: @picture, url: pictures_path, local: true) do |form| %>
   <div class="field form-group">
     <%= form.hidden_field :title %>
@@ -22,6 +21,7 @@
   <div class="field form-group">
     <%= form.hidden_field :custom_image ,id: :custom_image %>
   </div>
+  <p><%#= image_tag @picture.image %></p>
   <p>タイトル:<%= @picture.title %></p>
   <p>コンテンツ:<%= @picture.content %></p>
   <div class="field form-group">
