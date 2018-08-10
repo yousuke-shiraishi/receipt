@@ -6,6 +6,8 @@ class AddDeviseToUsers < ActiveRecord::Migration[5.1]
       ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
+      t.string :provider, null: false, default: "" ##追記
+      t.string :uid, null: false, default: "" ##追記
 
       ## Recoverable
       t.string   :reset_password_token
@@ -20,7 +22,7 @@ class AddDeviseToUsers < ActiveRecord::Migration[5.1]
       t.datetime :last_sign_in_at
       t.inet     :current_sign_in_ip
       t.inet     :last_sign_in_ip
-
+      add_index :users, [:uid, :provider], unique: true
       ## Confirmable
       # t.string   :confirmation_token
       # t.datetime :confirmed_at

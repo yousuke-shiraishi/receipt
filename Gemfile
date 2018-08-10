@@ -71,3 +71,6 @@ gem "jquery-fileupload-rails"
 gem 'cloudinary'
 gem 'rails_admin'
 gem 'cancancan'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-facebook'

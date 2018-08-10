@@ -26,8 +26,6 @@ const edit_picture = function edit_picture() {
       document.getElementById('custom_image').value = "";
       canvas.addEventListener("click", first_click, false);
       canvas.addEventListener("click", fill_rect, false);
-      // $('#custom_image').fileupload({ formData: { file: data }});
-      // $('#custom_image').fileupload('add', { files: [ data ] });
     };
     const first_click = function(e) {
       var rect = e.target.getBoundingClientRect();
@@ -57,8 +55,6 @@ const edit_picture = function edit_picture() {
         flg2 = false;
         data = canvas.toDataURL('image/png');
         document.getElementById('custom_image').value = data;
-        // $('#custom_image').fileupload({ formData: { file: data }});
-        // $('#custom_image').fileupload('add', { files: [ data ] });
       }
     };
   }
