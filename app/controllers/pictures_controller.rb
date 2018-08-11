@@ -65,7 +65,6 @@ class PicturesController < ApplicationController
   def check
     @picture = current_user.pictures.build(picture_params)
     gon.picture = @picture.image_cache
-
     render :new if @picture.invalid?
   end
 
@@ -80,7 +79,7 @@ class PicturesController < ApplicationController
   end
 
   def picture_params
-    params.require(:picture).permit(:title, :user_id, :content, :image, :custom_image, :search_word, :q, :image_cache)
+    params.require(:picture).permit(:title, :user_id, :content, :image, :custom_image, :image_cache, :search_word)
   end
 
   def exchange_params

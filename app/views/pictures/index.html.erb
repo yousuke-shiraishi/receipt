@@ -19,7 +19,7 @@
         <p><%= picture.created_at %></p>
       </div>
 
-      <div class="picture-links">
+      <div class="btn_box">
         <%= link_to '確認', picture_path(picture), class: 'btn btn-xs btn-primary' %>
         <% if picture.user == current_user %>
           <%= link_to '編集', edit_picture_path(picture), class: 'btn btn-xs btn-info' %>

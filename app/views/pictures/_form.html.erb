@@ -29,10 +29,10 @@
   </div>
   <div class="field form-group">
     <%= form.label :image %>
-    <%= form.file_field :image,id: :picture_image ,class: "form-control" %>
+    <%= form.file_field :image,id: :image ,class: "form-control" %>
     <%= form.hidden_field :image_cache %>
   </div>
-  <div class="field form-group">
+  <div class="btn_box">
   <%= form.submit  class: "btn btn-primary" %><%= link_to '戻る', pictures_path,class: "btn btn-primary" %>
 </div>
 <% end %>

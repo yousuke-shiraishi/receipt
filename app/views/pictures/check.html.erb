@@ -13,7 +13,7 @@
     <%= form.hidden_field :content %>
   </div>
   <div class="field form-group">
-    <%= form.hidden_field :image ,id: :picture_image %>
+    <%= form.hidden_field :image ,id: :image %>
   </div>
   <div class="field form-group">
     <%= form.hidden_field :search_word ,id: :search_word %>
@@ -24,6 +24,7 @@
   <p><%#= image_tag @picture.image %></p>
   <p>タイトル:<%= @picture.title %></p>
   <p>コンテンツ:<%= @picture.content %></p>
+  <div class="btn_box">
   <div class="field form-group">
     <%= form.submit "登録する" , class: 'btn btn-xs btn-primary' %>
   </div>
@@ -33,4 +34,5 @@
 <%= form.hidden_field :content %>
 <%= form.submit "戻る", name: 'back', class: 'btn btn-xs btn-danger' %>
 <% end %>
+</div>
 </div>
